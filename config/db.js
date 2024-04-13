@@ -1,4 +1,3 @@
-// database connection file to MongoDB
 import { mongoose } from "mongoose";
 
 const USERNAME = "admin";

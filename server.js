@@ -1,10 +1,10 @@
 import express from "express";
 import colors from "colors";
 import cors from "cors";
-// import UserRoutes from "./routes/UserRoutes.js";
 import connectDB from "./config/db.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-import router from "./routes/taskRoutes.js";
+import TaskRouter from "./routes/TaskRoutes.js";
+import UserRoutes from "./routes/UserRoutes.js";
 
 const app = express();
 import dotenv from "dotenv";
@@ -17,7 +17,8 @@ app.use(express.json());
 connectDB();
 
 // Routes
-app.use("/api", router);
+app.use("/api/user", UserRoutes);
+app.use("/api/tasks", TaskRouter);
 
 // Middleware
 app.use(notFound);

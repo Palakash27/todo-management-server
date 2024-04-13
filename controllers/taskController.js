@@ -1,6 +1,6 @@
-import Task from "../models/task.js";
+import Task from "../models/Task.js";
 
-const taskController = {
+const TaskController = {
     // Create a new task
     createTask: async (req, res) => {
         try {
@@ -73,4 +73,4 @@ const taskController = {
     },
 };
 
-export default taskController;
+export default TaskController;
