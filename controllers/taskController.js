@@ -5,7 +5,12 @@ const TaskController = {
     createTask: async (req, res) => {
         try {
             const { title, description, status } = req.body;
-            const task = new Task({ title, description, status });
+            const task = new Task({
+                title,
+                description,
+                status,
+                createdBy: req.user._id,
+            });
             const newTask = await task.save();
             res.status(201).json(newTask);
         } catch (error) {
@@ -13,15 +18,11 @@ const TaskController = {
         }
     },
 
-    // Get all tasks or filter tasks by status
+    // Get all tasks for a user
     getAllTasks: async (req, res) => {
         try {
             let tasks;
-            if (req.query.status) {
-                tasks = await Task.find({ status: req.query.status });
-            } else {
-                tasks = await Task.find();
-            }
+            tasks = await Task.find({ createdBy: req.user._id });
             res.json(tasks);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -31,7 +32,10 @@ const TaskController = {
     // Get a task by ID
     getTaskById: async (req, res) => {
         try {
-            const task = await Task.findById(req.params.taskId);
+            const task = await Task.findOne({
+                _id: req.params.taskId,
+                createdBy: req.user._id,
+            });
             if (!task) {
                 return res.status(404).json({ message: "Task not found" });
             }
@@ -45,8 +49,8 @@ const TaskController = {
     updateTask: async (req, res) => {
         try {
             const { title, description, status } = req.body;
-            const updatedTask = await Task.findByIdAndUpdate(
-                req.params.taskId,
+            const updatedTask = await Task.findOneAndUpdate(
+                { _id: req.params.taskId, createdBy: req.user._id },
                 { title, description, status },
                 { new: true }
             );
@@ -62,7 +66,10 @@ const TaskController = {
     // Delete a task by ID
     deleteTask: async (req, res) => {
         try {
-            const deletedTask = await Task.findByIdAndDelete(req.params.taskId);
+            const deletedTask = await Task.findOneAndDelete({
+                _id: req.params.taskId,
+                createdBy: req.user._id,
+            });
             if (!deletedTask) {
                 return res.status(404).json({ message: "Task not found" });
             }

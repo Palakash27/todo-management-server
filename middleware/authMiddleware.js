@@ -9,7 +9,6 @@ const protect = async (req, res, next) => {
         try {
             // extract token from authHeader string
             token = authHeader.split(" ")[1];
-
             // verified token returns user id
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -48,7 +48,8 @@ const UserController = {
 
             // return user obj if their password matches
             if (user && (await user.matchPassword(password))) {
-                res.json({
+                req.loggedInUser = user;
+                res.status(200).json({
                     _id: user._id,
                     fullName: user.fullName,
                     email: user.email,
@@ -75,7 +76,7 @@ const UserController = {
             }
 
             if (user) {
-                res.json({
+                res.status(200).json({
                     id: user._id,
                     fullName: user.fullName,
                     email: user.email,
