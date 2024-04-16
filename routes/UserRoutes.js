@@ -13,7 +13,9 @@ router.post("/login", UserController.loginUser);
 // GET /profile - Get user profile
 router.route("/profile").get(protect, UserController.getUserProfile);
 
-// GET /profile/:username - Get user profile with username
-router.route("/profile/:username").get(protect, UserController.getUserProfile);
+// patch /profile/:id - Update user profile picture with id
+router
+    .route("/profile/:id")
+    .patch(protect, UserController.updateProfilePicture);
 
 export default router;

@@ -54,6 +54,7 @@ const UserController = {
                     fullName: user.fullName,
                     email: user.email,
                     username: user.username,
+                    avatar: user.avatar,
                     userToken: generateToken(user._id),
                 });
             } else {
@@ -81,11 +82,29 @@ const UserController = {
                     fullName: user.fullName,
                     email: user.email,
                     username: user.username,
+                    avatar: user.avatar,
                 });
             } else {
                 res.status(404);
                 throw new Error("User not found");
             }
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    updateProfilePicture: async (req, res) => {
+        try {
+            const { avatar } = req.body;
+            let updatedUser = await User.findOneAndUpdate(
+                { _id: req.params.id },
+                { avatar },
+                { new: true }
+            );
+            if (!updatedUser) {
+                res.status(404).json({ message: "User not found" });
+            }
+            res.status(200).json(updatedUser);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
