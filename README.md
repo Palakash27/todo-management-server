@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is the backend implementation of a task management application. It provides RESTful APIs for managing tasks and user authentication.
+This project is the backend implementation of a task management application. It provides RESTful APIs for managing tasks and user authentication. Deployed in Heroku.
 
 ## Features
 
