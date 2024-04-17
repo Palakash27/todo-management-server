@@ -16,6 +16,6 @@ router.route("/:taskId").get(protect, TaskController.getTaskById);
 router.route("/:taskId").put(protect, TaskController.updateTask);
 
 // DELETE /tasks/:taskId - Delete a task by ID
-router.route("/").delete(protect, TaskController.deleteTask);
+router.route("/:taskId").delete(protect, TaskController.deleteTask);
 
 export default router;
