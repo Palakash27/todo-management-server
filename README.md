@@ -17,21 +17,25 @@ This project is the backend implementation of a task management application. It 
 
 -   **POST /api/user/register:** Register a new user.
 -   **POST /api/user/login:** Log in a user and generate a JWT token.
--   **GET /api/user/profile/:username:** Get the profile details of a user.
--   **PUT /api/user/:id/update-profile-picture:** Update the profile picture of a user.
+-   **GET /api/user/profile:** Get the profile details of logged in user.
+-   **PATCH /api/user/profile/:id:** Update the profile picture of a user.
 -   **POST /api/tasks:** Create a new task.
 -   **GET /api/tasks:** Get all tasks.
 -   **GET /api/tasks/:id:** Get a task by ID.
 -   **PUT /api/tasks/:id:** Update a task by ID.
 -   **DELETE /api/tasks/:id:** Delete a task by ID.
 
-## Installation
+## Installation (Node Version (v20.5.0) and npm version (10.5.1))
 
 1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the project directory: `cd task-management-backend`
+2. Navigate to the project directory: `cd todo-management-server`
 3. Install dependencies: `npm install`
-4. Set up environment variables: Create a `.env` file and add the necessary variables (e.g., JWT secret key).
-5. Start the server: `npm start`
+4. Set up environment variables: Create a `.env` file and add the necessary variables.
+   (e.g., PORT=3001
+          JWT_SECRET=taskmanager
+          NODE_ENV=development)
+6. Start the server: `npm start`/`npm run server`
+7. To run unit tests: `npm run test`
 
 ## Technologies Used
 
