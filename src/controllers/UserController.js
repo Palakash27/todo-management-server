@@ -10,8 +10,9 @@ const UserController = {
             const userExists = await User.findOne({ email });
 
             if (userExists) {
-                res.status(404);
-                throw new Error(`User with email(${email}) already exists`);
+                res.status(404).json({
+                    message: `User with email(${email}) already exists`,
+                });
             }
 
             // create new user document in db
@@ -30,8 +31,7 @@ const UserController = {
                     username: user.username,
                 });
             } else {
-                res.status(400);
-                throw new Error("Invalid user data");
+                res.status(400).json({ message: "Invalid user data" });
             }
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -58,8 +58,9 @@ const UserController = {
                     userToken: generateToken(user._id),
                 });
             } else {
-                res.status(401);
-                throw new Error("Invalid username/email or password");
+                res.status(401).json({
+                    message: "Invalid username/email or password",
+                });
             }
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -85,8 +86,7 @@ const UserController = {
                     avatar: user.avatar,
                 });
             } else {
-                res.status(404);
-                throw new Error("User not found");
+                res.status(404).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -105,6 +105,20 @@ const UserController = {
                 res.status(404).json({ message: "User not found" });
             }
             res.status(200).json(updatedUser);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    deleteUserProfile: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (user) {
+                await user.remove();
+                res.status(202).json({ message: "User removed" });
+            } else {
+                res.status(404).json({ message: "User not found" });
+            }
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

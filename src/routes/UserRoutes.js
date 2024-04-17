@@ -18,4 +18,9 @@ router
     .route("/profile/:id")
     .patch(protect, UserController.updateProfilePicture);
 
+// DELETE /profile - Delte user profile
+router
+    .route("/profile/:id/delete")
+    .delete(protect, UserController.deleteUserProfile);
+
 export default router;
